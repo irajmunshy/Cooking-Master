@@ -1,5 +1,7 @@
 document.getElementById('search-button').addEventListener('click', () => {
     const mealInput = document.getElementById('food-name').value;
+    document.getElementById('food-container').innerText = '';
+    document.getElementById('food-details').innerText = '';
     createMealLink(mealInput);
 })
 

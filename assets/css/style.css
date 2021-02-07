@@ -52,6 +52,7 @@
 .unknown {
     text-transform: uppercase;
     text-align: center;
+    padding-bottom: 50px;
 }
 .food-content {
     height: 250px;
@@ -80,6 +81,7 @@
     height: 650px;
     background-color: #fff;
     border-radius: 10px;
+    margin-bottom: 10px;
 }
 .detail-img {
     width: 500px;
