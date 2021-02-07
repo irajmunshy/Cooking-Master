@@ -1,0 +1,111 @@
+* {
+    background-color: #EDD263;
+}
+
+
+.header-area {
+    padding: 25px 0;
+}
+.logo a {
+    color: #3B2D64 !important;
+    font-size: 23px;
+    font-weight: 500;
+}
+.menu li a {
+    color: #000 !important;
+    font-size: 18px;
+    font-weight: 500;
+}
+
+
+.input-area {
+    padding-bottom: 20px;
+}
+/* .input-area span i {
+    background-color: #fff;
+    font-size: 20px;
+    color: gray;
+    border: none;
+}  */
+.input-area input {
+    border: none;
+    padding: 15px;
+}
+.button {
+    background-color: #3B2D64;
+    color: #fff;
+    padding: 15px 25px;
+}
+.button:hover {
+    color: #fff;
+}
+
+
+#food-container {
+    width: 80%;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 40px;
+    padding-bottom: 80px;
+}
+.unknown {
+    text-transform: uppercase;
+    text-align: center;
+}
+.food-content {
+    height: 250px;
+    background-color: #fff;
+    border-radius: 10px;
+    text-align: center;
+}
+.food-img {
+    height: 150px;
+    background-color: #fff;
+    border-radius: 10px;
+    margin: 20px 0;
+    cursor: pointer;
+}
+.food-title {
+    background-color: #fff;
+}
+
+
+.details {
+    width: 500px;
+    margin: 0 auto;
+    padding-bottom: 120px;
+}
+#food-details div {
+    height: 650px;
+    background-color: #fff;
+    border-radius: 10px;
+}
+.detail-img {
+    width: 500px;
+    height: 350px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+.detail-title {
+    padding: 15px 20px;
+    font-size: 45px;
+    font-weight: 600;
+    background-color: #fff;
+}
+.detail-sub {
+    padding: 10px 20px;
+    font-size: 22px;
+    font-weight: 600;
+    background-color: #fff;
+}
+.ingredients {
+    background-color: #fff;
+}
+.ingredients li {
+    list-style: none;
+    font-size: 16px;
+    font-weight: 600;
+    background-color: #fff;
+}
+
