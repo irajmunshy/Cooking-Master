@@ -1,69 +1,87 @@
 document.getElementById('search-button').addEventListener('click', () => {
-    const mealInput = document.getElementById('food-name').value;
-    document.getElementById('food-container').innerText = '';
-    document.getElementById('food-details').innerText = '';
-    createMealLink(mealInput);
+    const foodInput = document.getElementById('food-name').value;
+    const url = `https://www.themealdb.com/api/json/v1/1/search.php?s=${foodInput}`;
+
+    fetch(url)
+        .then(res => res.json())
+        .then(data => displayFoods(data.meals))
 })
 
-const createMealLink = mealName => {
-    const createUrl = `https://www.themealdb.com/api/json/v1/1/search.php?s=${mealName}`;
 
-    fetch(createUrl)
-        .then(res => res.json())
-        .then(data => getFoodNames(data.meals))
-}
-
-    
-
-const getFoodNames = foodsArray => {
+const displayFoods = foods => {
     const foodContainer = document.getElementById('food-container');
-    
-    if (foodsArray === null) {
-        const unKnownFood = `
-            <h1 class="unknown">UnKnown Food Name</h1>
+    foodContainer.innerText = '';
+
+    const foodContent = document.createElement('div');
+    foodContent.className = 'food-content';
+
+    if (foods === null) {
+        const unKnownName = `
+            <h1 class="unknown">Sorry!</h1>
+            <h2 class="unknown">UnKnown Food Name</h2>
         `;
-        foodContainer.innerHTML = unKnownFood;
+
+        foodContainer.innerHTML = unKnownName;
     } else {
-        foodsArray.forEach(food => {
+        foods.forEach(food => {
             const foodDiv = document.createElement('div');
-            foodDiv.className = 'food-content';
+            foodDiv.className = 'food-info';
     
             const foodInfo = `
-                <img onclick="displayFoodDetail('${food.strMeal}')" class="food-img" src="${food.strMealThumb}"/>
-                <h3 class="food-title">${food.strMeal}</h3>
-            `;
+                    <img onclick="getFoodDetail('${food.strMeal}')" class="food-img" src="${food.strMealThumb}"/>
+                    <p class="food-title">${food.strMeal}</p>  
+                `;
             foodDiv.innerHTML = foodInfo;
-            foodContainer.appendChild(foodDiv);
+            foodContent.appendChild(foodDiv);
+    
         });
+        foodContainer.appendChild(foodContent);
     }
 
     document.getElementById('food-name').value = '';
 }
 
-const displayFoodDetail = foodName => {
-    const detailUrl = `https://www.themealdb.com/api/json/v1/1/search.php?s=${foodName}`;
 
-    fetch(detailUrl)
+const getFoodDetail = foodName => {
+    const url = `https://www.themealdb.com/api/json/v1/1/search.php?s=${foodName}`;
+
+    fetch(url)
         .then(response => response.json())
-        .then(data => {
-            const dataFind = data.meals;
-            const detailDiv = document.createElement('div');
-            const foodDetails = document.getElementById('food-details');
-           
-            const foodDetailsInfo = `
-                <img class="detail-img" src="${dataFind[0].strMealThumb}"/>
-                <h3 class="detail-title" >${dataFind[0].strMeal}</h3>
-                <h5 class="detail-sub">Ingredients</h5>
-                <ul class="ingredients">
-                    <li>${dataFind[0].strIngredient1}</li>
-                    <li>${dataFind[0].strIngredient2}</li>
-                    <li>${dataFind[0].strIngredient3}</li>
-                    <li>${dataFind[0].strIngredient4}</li>
-                    <li>${dataFind[0].strIngredient5}</li>
-                    <li>${dataFind[0].strIngredient6}</li>
-                </ul>
-            `;
-            detailDiv.innerHTML = foodDetailsInfo;
-            foodDetails.appendChild(detailDiv);
-        })
+        .then(data => displayDetail(data.meals[0]))
 }
+
+
+const displayDetail = detail => {
+    const foodDetails = document.getElementById('food-details');
+    foodDetails.innerText = '';
+
+    const detailDiv = document.createElement('div');
+    detailDiv.className = 'details-content';
+
+    const foodDetailsInfo = `
+            <img class="detail-img" src="${detail.strMealThumb}"/>
+            
+            <div class="details-info">
+                <h3 class="detail-title" >${detail.strMeal}</h3>
+                <h5 class="detail-sub">Ingredients</h5>
+                <ul id="ingredients" class="ingredients"></ul>
+            </div>
+        `;
+    detailDiv.innerHTML = foodDetailsInfo;
+    foodDetails.appendChild(detailDiv);
+
+    const ingredientName = document.getElementById('ingredients');
+    for (let i = 1; i <= 20; i++) {
+        if (detail[`strIngredient${i}`] === "") {
+            break;
+        } else {
+            const li = document.createElement('li');
+            li.innerText = detail[`strIngredient${i}`]; 
+            ingredientName.appendChild(li);
+        }
+    }
+}
+
+
+
+
